@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-details',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./details.page.scss'],
 })
 export class DetailsPage implements OnInit {
+  tour: any;
 
-  constructor() { }
+  constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
+    console.log(this.activatedRoute);
+    this.tour = this.activatedRoute.snapshot.params;
   }
-
 }

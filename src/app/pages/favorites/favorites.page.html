@@ -8,5 +8,13 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-button href="/details">Show details</ion-button>
+  <ion-list>
+    <ion-item
+      *ngFor="let tour of tours"
+      [routerLink]="['/details', tour]"
+      routerDirection="forward"
+    >
+      {{tour.Title}}
+    </ion-item>
+  </ion-list>
 </ion-content>
