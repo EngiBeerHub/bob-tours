@@ -7,10 +7,14 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tour-Types</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item
+      *ngFor="let tourtype of btService.tourtypes"
+      [routerLink]="['/list', { Category: 'Tourtype', Criteria: tourtype.ID, Name: tourtype.Name}]"
+      routerDirection="forward"
+    >
+      {{tourtype.Name}}
+    </ion-item>
+  </ion-list>
 </ion-content>

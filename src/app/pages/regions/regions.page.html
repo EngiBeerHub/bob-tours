@@ -8,9 +8,13 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Regions</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-list>
+    <ion-item
+      *ngFor="let region of btService.regions"
+      [routerLink]="['/list', { Category: 'Region', Criteria: region.ID, Name: region.Name }]"
+      routerDirection="forward"
+    >
+      {{region.Name}}
+    </ion-item>
+  </ion-list>
 </ion-content>

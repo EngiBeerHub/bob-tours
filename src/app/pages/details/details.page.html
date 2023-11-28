@@ -12,3 +12,18 @@
     Request a Tour
   </ion-button>
 </ion-content>
+
+<ion-footer class="ion-padding">
+  <ion-button
+    (click)="favService.add(tour.ID); isFavorite=true;"
+    *ngIf="!isFavorite"
+    expand="block"
+    >Add to Favorites</ion-button
+  >
+  <ion-button
+    (click)="favService.remove(tour.ID); isFavorite=false;"
+    *ngIf="isFavorite"
+    expand="block"
+    >Remove from Favorites</ion-button
+  >
+</ion-footer>

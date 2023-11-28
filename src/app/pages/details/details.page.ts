@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import * as _ from 'lodash';
+import { BobToursService } from 'src/app/services/bob-tours.service';
+import { FavoritesService } from 'src/app/services/favorites.service';
 
 @Component({
   selector: 'app-details',
@@ -8,11 +11,17 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DetailsPage implements OnInit {
   tour: any;
+  isFavorite: boolean = false;
 
-  constructor(private activatedRoute: ActivatedRoute) {}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    public btService: BobToursService,
+    public favService: FavoritesService
+  ) {}
 
   ngOnInit() {
-    console.log(this.activatedRoute);
-    this.tour = this.activatedRoute.snapshot.params;
+    let id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.tour = _.find(this.btService.tours, ['ID', parseInt(id!)]);
+    this.isFavorite = this.favService.favIDs.indexOf(parseInt(id!)) != -1;
   }
 }

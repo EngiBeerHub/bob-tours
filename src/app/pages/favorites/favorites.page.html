@@ -9,12 +9,17 @@
 
 <ion-content class="ion-padding">
   <ion-list>
-    <ion-item
-      *ngFor="let tour of tours"
-      [routerLink]="['/details', tour]"
-      routerDirection="forward"
+    <ng-container *ngFor="let tour of btService.tours">
+      <ion-item
+        *ngIf="favService.favIDs.includes(tour.ID)"
+        [routerLink]="['/details', tour.ID]"
+        routerDirection="forward"
+      >
+        {{tour.Title}}
+      </ion-item>
+    </ng-container>
+    <ion-item *ngIf="favService.favIDs?.length === 0"
+      >You didn't choose any favorites yet!</ion-item
     >
-      {{tour.Title}}
-    </ion-item>
   </ion-list>
 </ion-content>
