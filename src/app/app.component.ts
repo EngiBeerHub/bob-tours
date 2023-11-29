@@ -5,6 +5,8 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
+  settings: any = {};
+
   public appPages = [
     { title: 'Favorites', url: '/favorites', icon: 'star' },
     { title: 'Regions', url: '/regions', icon: 'images' },
@@ -12,4 +14,8 @@ export class AppComponent {
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   constructor() {}
+
+  updateSettings() {
+    console.log(this.settings.notifications);
+  }
 }

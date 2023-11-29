@@ -3,6 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { BobToursService } from 'src/app/services/bob-tours.service';
 import * as _ from 'lodash';
 
+interface TourType {
+  ID: number;
+  Name: string;
+  Count: number;
+}
+
 @Component({
   selector: 'app-tour-types',
   templateUrl: './tour-types.page.html',
@@ -11,5 +17,10 @@ import * as _ from 'lodash';
 export class TourTypesPage implements OnInit {
   constructor(public btService: BobToursService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.btService.tourtypes.forEach((tourtype: TourType) => {
+      const tours = _.filter(this.btService.tours, ['Tourtype', tourtype.ID]);
+      tourtype.Count = tours.length;
+    });
+  }
 }

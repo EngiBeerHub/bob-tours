@@ -14,7 +14,13 @@
       [routerLink]="'/details/' + tour.ID"
       routerDirection="forward"
     >
-      {{tour.Title}}
+      <ion-thumbnail slot="start">
+        <img src="https://ionic.andreas-dormann.de/img/small/{{tour.Image}}" />
+      </ion-thumbnail>
+      <ion-label>
+        <h2 class="ion-text-wrap">{{tour.Title}}</h2>
+        <p>Duration: {{tour.Duration}} min</p>
+      </ion-label>
     </ion-item>
   </ion-list>
 </ion-content>

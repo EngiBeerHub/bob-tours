@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { BobToursService } from 'src/app/services/bob-tours.service';
+import * as _ from 'lodash';
+
+interface Region {
+  ID: number;
+  Name: string;
+  Count: number;
+}
 
 @Component({
   selector: 'app-regions',
@@ -9,5 +16,10 @@ import { BobToursService } from 'src/app/services/bob-tours.service';
 export class RegionsPage implements OnInit {
   constructor(public btService: BobToursService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.btService.regions.forEach((region: Region) => {
+      const tours = _.filter(this.btService.tours, ['Region', region.ID]);
+      region.Count = tours.length;
+    });
+  }
 }

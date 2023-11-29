@@ -8,7 +8,55 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-button routerLink="/favorites" routerDirection="root">
-    Back to Favorites
-  </ion-button>
+  <ion-list>
+    <!-- Schedule group -->
+    <ion-item-group>
+      <ion-list-header>
+        <ion-label>Desired schedule</ion-label>
+      </ion-list-header>
+      <!-- DateTime -->
+      <ion-item>
+        <ion-datetime
+          [(ngModel)]="request.DesiredDateTime"
+          min="{{day_after_tomorrow}}"
+          max="{{one_year_later}}"
+          hourValues="9,10,11,12,13,14,15,16,17"
+          minuteValues="0,15,30,45"
+        ></ion-datetime>
+      </ion-item>
+    </ion-item-group>
+
+    <!-- Contact information group -->
+    <ion-item-group>
+      <ion-list-header>
+        <ion-label>Your contact information</ion-label>
+      </ion-list-header>
+      <!-- First name -->
+      <ion-item>
+        <ion-input
+          label="First name"
+          [(ngModel)]="request.FirstName"
+        ></ion-input>
+      </ion-item>
+      <!-- Last name -->
+      <ion-item>
+        <ion-input label="Last name" [(ngModel)]="request.LastName"></ion-input>
+      </ion-item>
+      <!-- Email -->
+      <ion-item>
+        <ion-input
+          label="Email"
+          type="email"
+          [(ngModel)]="request.Email"
+        ></ion-input>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
 </ion-content>
+
+<ion-footer class="ion-padding">
+  <ion-button expand="block" routerLink="/favorites" routerDirection="root"
+    >Back to Favorites</ion-button
+  >
+  <ion-button expand="block" (click)="send()">Send request</ion-button>
+</ion-footer>
