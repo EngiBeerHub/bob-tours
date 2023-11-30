@@ -4,10 +4,12 @@ import {
   ActionSheetController,
   AlertController,
   IonicModule,
+  ModalController,
 } from '@ionic/angular';
 import * as _ from 'lodash';
 import { BobToursService } from 'src/app/services/bob-tours.service';
 import { FavoritesService } from 'src/app/services/favorites.service';
+import { RequestPage } from '../request/request.page';
 
 @Component({
   selector: 'app-details',
@@ -25,7 +27,8 @@ export class DetailsPage implements OnInit {
     public btService: BobToursService,
     public favService: FavoritesService,
     private actionSheetCtrl: ActionSheetController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private modalCtrl: ModalController
   ) {}
 
   ngOnInit() {
@@ -45,7 +48,8 @@ export class DetailsPage implements OnInit {
         {
           text: 'Request',
           handler: () => {
-            window.location.href = '/request';
+            this.presentModal();
+            // window.location.href = '/request';
           },
         },
         {
@@ -91,5 +95,13 @@ export class DetailsPage implements OnInit {
 
   openSocial(app: string) {
     console.log('User wants to share this tour via ' + app + '!');
+  }
+
+  async presentModal() {
+    const modal = this.modalCtrl.create({
+      component: RequestPage,
+      componentProps: this.tour,
+    });
+    (await modal).present();
   }
 }

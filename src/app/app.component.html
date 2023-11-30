@@ -23,11 +23,53 @@
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
+          <ion-item id="click-trigger">
+            <ion-icon slot="start" name="information-circle"> </ion-icon>
+            <ion-label>About this app</ion-label>
+            <ion-popover trigger="click-trigger" triggerAction="click">
+              <ng-template>
+                <app-about></app-about>
+              </ng-template>
+            </ion-popover>
+          </ion-item>
         </ion-list>
       </ion-content>
       <ion-footer>
         <ion-list>
+          <ion-list-header>Filter</ion-list-header>
+          <ion-item>
+            Price from {{ btService.price.lower }} to
+            {{ btService.price.upper }} EUR
+            <ion-badge slot="end"> {{ btService.hits }} </ion-badge>
+          </ion-item>
+          <ion-item>
+            <ion-range
+              min="80"
+              max="400"
+              step="20"
+              pin="true"
+              snaps="true"
+              dualKnobs="true"
+              [(ngModel)]="btService.price"
+              (ionChange)="btService.filterToursByPrice()"
+            >
+              <ion-icon slot="start" name="caret-down-outline"></ion-icon>
+              <ion-icon slot="end" name="caret-up-outline"></ion-icon>
+            </ion-range>
+          </ion-item>
+
           <ion-list-header>Settings</ion-list-header>
+          <ion-radio-group
+            [(ngModel)]="settings.style"
+            (ionChange)="updateSettings()"
+          >
+            <ion-item>
+              <ion-radio value="azure-style">Azure-Style</ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-radio value="summer-style">Summer-Style</ion-radio>
+            </ion-item>
+          </ion-radio-group>
           <ion-item>
             <ion-checkbox
               labelPlacement="start"

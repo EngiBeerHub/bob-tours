@@ -9,6 +9,11 @@ export class BobToursService {
   public regions: any;
   public tourtypes: any;
   public tours: any;
+  public all_tours: any;
+  public hits: number = 24;
+  public price: any = { lower: 80, upper: 400 };
+
+  public gotAllTours: boolean = false;
 
   baseUrl = 'https://bob-tours-app.firebaseio.com/';
 
@@ -36,6 +41,15 @@ export class BobToursService {
     let requestUrl = `${this.baseUrl}/Tours.json`;
     this.http.get(requestUrl).subscribe((data) => {
       this.tours = _.sortBy(data, 'Title');
+      this.all_tours = _.sortBy(data, 'Title');
+      this.gotAllTours = true;
     });
+  }
+
+  filterToursByPrice() {
+    this.tours = _.filter(this.all_tours, (tour) => {
+      return tour.PriceG >= this.price.lower && tour.PriceG <= this.price.upper;
+    });
+    this.hits = this.tours.length;
   }
 }
