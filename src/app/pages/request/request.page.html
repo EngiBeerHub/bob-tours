@@ -11,7 +11,8 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-list>
+  <!-- <ion-list> -->
+  <form [formGroup]="validationForm">
     <!-- Tour info group -->
     <ion-item-group>
       <ion-item-divider>
@@ -37,7 +38,7 @@
       <!-- DateTime -->
       <ion-item>
         <ion-datetime
-          [(ngModel)]="request.DesiredDateTime"
+          formControlName="DesiredDateTime"
           min="{{day_after_tomorrow}}"
           max="{{one_year_later}}"
           hourValues="9,10,11,12,13,14,15,16,17"
@@ -52,11 +53,8 @@
         <ion-label>Language</ion-label>
       </ion-item-divider>
       <ion-item>
-        <ion-select
-          label="The guide should speak"
-          [(ngModel)]="request.Language"
-          interface="popover"
-        >
+        <ion-label>The guide should speak</ion-label>
+        <ion-select formControlName="Language" interface="popover">
           <ion-select-option>english</ion-select-option>
           <ion-select-option>spanish</ion-select-option>
           <ion-select-option>chinese</ion-select-option>
@@ -73,7 +71,8 @@
         <ion-label>Bus</ion-label>
       </ion-item-divider>
       <ion-item>
-        <ion-toggle [(ngModel)]="request.Bus"> We need a bus. </ion-toggle>
+        <ion-label>We need a bus.</ion-label>
+        <ion-toggle formControlName="NeedBus"></ion-toggle>
       </ion-item>
     </ion-item-group>
 
@@ -84,25 +83,55 @@
       </ion-list-header>
       <!-- First name -->
       <ion-item>
-        <ion-input
-          label="First name"
-          [(ngModel)]="request.FirstName"
-        ></ion-input>
+        <ion-label position="floating">First name</ion-label>
+        <ion-input formControlName="FirstName" type="text"></ion-input>
       </ion-item>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.FirstName">
+          <div
+            class="error-message"
+            *ngIf="validationForm.get('FirstName')?.hasError(validation.type) && (validationForm.get('FirstName')?.dirty || validationForm.get('FirstName')?.touched)"
+          >
+            <ion-icon name="flash"></ion-icon>
+            {{validation.message}}
+          </div>
+        </ng-container>
+      </div>
       <!-- Last name -->
       <ion-item>
-        <ion-input label="Last name" [(ngModel)]="request.LastName"></ion-input>
+        <ion-label position="floating">Last name</ion-label>
+        <ion-input type="text" formControlName="LastName"></ion-input>
       </ion-item>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.LastName">
+          <div
+            class="error-message"
+            *ngIf="validationForm.get('LastName')?.hasError(validation.type) && (validationForm.get('LastName')?.dirty || validationForm.get('LastName')?.touched)"
+          >
+            <ion-icon name="flash"></ion-icon>
+            {{validation.message}}
+          </div>
+        </ng-container>
+      </div>
       <!-- Email -->
       <ion-item>
-        <ion-input
-          label="Email"
-          type="email"
-          [(ngModel)]="request.Email"
-        ></ion-input>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" formControlName="Email"></ion-input>
       </ion-item>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.Email">
+          <div
+            class="error-message"
+            *ngIf="validationForm.get('Email')?.hasError(validation.type) && (validationForm.get('Email')?.dirty || validationForm.get('Email')?.touched)"
+          >
+            <ion-icon name="flash"></ion-icon>
+            {{validation.message}}
+          </div>
+        </ng-container>
+      </div>
     </ion-item-group>
-  </ion-list>
+  </form>
+  <!-- </ion-list> -->
 
   <ion-toast
     message="Thank you for your request! We will answer you shortly."
@@ -112,8 +141,14 @@
 </ion-content>
 
 <ion-footer class="ion-padding">
-  <ion-button expand="block" routerLink="/favorites" routerDirection="root"
+  <!-- <ion-button expand="block" routerLink="/favorites" routerDirection="root"
     >Back to Favorites</ion-button
+  > -->
+  <ion-button
+    expand="block"
+    type="submit"
+    [disabled]="!validationForm.valid"
+    (click)="send(validationForm.value)"
+    >Send request</ion-button
   >
-  <ion-button expand="block" (click)="send()">Send request</ion-button>
 </ion-footer>
