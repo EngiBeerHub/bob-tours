@@ -23,4 +23,18 @@ export class ListPage implements OnInit {
     let criteria = this.selection.Criteria;
     this.tours = _.filter(this.btService.tours, [category, criteria]);
   }
+
+  search(event: any) {
+    let searchText = event.detail.value;
+    this.tours = _.filter(this.btService.tours, [
+      this.selection.Category,
+      this.selection.Criteria,
+    ]);
+
+    if (searchText != '') {
+      this.tours = this.tours.filter((tour: any) => {
+        return tour.Title.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
+      });
+    }
+  }
 }

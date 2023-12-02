@@ -8,7 +8,10 @@ import { ModalController, NavParams } from '@ionic/angular';
 })
 export class RequestPage implements OnInit {
   tour: any = {};
-  request: any = {};
+  request: any = { Language: 'english' };
+  isBusTrip = false;
+  isSent = false;
+
   day_after_tomorrow: string = '';
   one_year_later: string = '';
 
@@ -33,6 +36,10 @@ export class RequestPage implements OnInit {
       day_after_tomorrow.getTime() + 1000 * 60 * 60 * 24 * 365
     );
     this.one_year_later = one_year_later.toISOString().slice(0, 10) + 'T17:00';
+
+    this.isSent = false;
+
+    this.isBusTrip = this.tour.Tourtype == 'BU';
   }
 
   send() {
@@ -44,6 +51,8 @@ export class RequestPage implements OnInit {
       this.request.LastName,
       this.request.Email
     );
+
+    this.isSent = true;
   }
 
   cancel() {

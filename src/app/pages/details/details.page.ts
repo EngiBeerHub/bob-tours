@@ -10,6 +10,7 @@ import * as _ from 'lodash';
 import { BobToursService } from 'src/app/services/bob-tours.service';
 import { FavoritesService } from 'src/app/services/favorites.service';
 import { RequestPage } from '../request/request.page';
+import { MapPage } from '../map/map.page';
 
 @Component({
   selector: 'app-details',
@@ -50,6 +51,12 @@ export class DetailsPage implements OnInit {
           handler: () => {
             this.presentModal();
             // window.location.href = '/request';
+          },
+        },
+        {
+          text: 'Map/Route',
+          handler: () => {
+            this.presentMap();
           },
         },
         {
@@ -103,5 +110,13 @@ export class DetailsPage implements OnInit {
       componentProps: this.tour,
     });
     (await modal).present();
+  }
+
+  async presentMap() {
+    const modal = await this.modalCtrl.create({
+      component: MapPage,
+      componentProps: this.tour,
+    });
+    modal.present();
   }
 }

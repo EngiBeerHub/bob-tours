@@ -46,6 +46,37 @@
       </ion-item>
     </ion-item-group>
 
+    <!-- Language selection group -->
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label>Language</ion-label>
+      </ion-item-divider>
+      <ion-item>
+        <ion-select
+          label="The guide should speak"
+          [(ngModel)]="request.Language"
+          interface="popover"
+        >
+          <ion-select-option>english</ion-select-option>
+          <ion-select-option>spanish</ion-select-option>
+          <ion-select-option>chinese</ion-select-option>
+          <ion-select-option>german</ion-select-option>
+          <ion-select-option>french</ion-select-option>
+          <ion-select-option>italian</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-item-group>
+
+    <!-- Bus group (only if we have a bus trip) -->
+    <ion-item-group *ngIf="isBusTrip">
+      <ion-item-divider>
+        <ion-label>Bus</ion-label>
+      </ion-item-divider>
+      <ion-item>
+        <ion-toggle [(ngModel)]="request.Bus"> We need a bus. </ion-toggle>
+      </ion-item>
+    </ion-item-group>
+
     <!-- Contact information group -->
     <ion-item-group>
       <ion-list-header>
@@ -72,6 +103,12 @@
       </ion-item>
     </ion-item-group>
   </ion-list>
+
+  <ion-toast
+    message="Thank you for your request! We will answer you shortly."
+    [duration]="3500"
+    [isOpen]="isSent"
+  ></ion-toast>
 </ion-content>
 
 <ion-footer class="ion-padding">
