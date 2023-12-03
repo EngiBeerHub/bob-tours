@@ -6,6 +6,7 @@ import {BobToursService} from 'src/app/services/bob-tours.service';
 import {FavoritesService} from 'src/app/services/favorites.service';
 import {RequestPage} from '../request/request.page';
 import {MapPage} from '../map/map.page';
+import {Share} from "@capacitor/share";
 
 @Component({
   selector: 'app-details',
@@ -138,5 +139,26 @@ export class DetailsPage implements OnInit {
       }
       this.fadeOutOptionButton = !this.fadeOutOptionButton;
     }
+  }
+
+  async openShare() {
+    await Share.share({
+      title: 'BoB Tours',
+      text: 'Check this out: ' + this.tour.Title,
+      url: 'https://ionic.andreas-dormann.de/app?id=' + this.tour.ID,
+      dialogTitle: 'Share tour with buddies'
+    }).catch(error => {
+      if (error.toString().includes('AbortError')) return;
+      this.alertShare();
+    });
+  }
+
+  async alertShare() {
+    const alert = await this.alertCtrl.create({
+      header: 'Sorry',
+      message: 'This browser doesn\'t support Share!',
+      buttons: ['OK']
+    });
+    await alert.present;
   }
 }
