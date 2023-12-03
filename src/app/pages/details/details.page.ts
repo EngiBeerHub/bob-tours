@@ -35,10 +35,10 @@ export class DetailsPage implements OnInit {
     let id = this.activatedRoute.snapshot.paramMap.get('id');
     this.tour = _.find(this.btService.tours, ['ID', parseInt(id!)]);
     this.isFavorite = this.favService.favIDs.indexOf(parseInt(id!)) != -1;
-    this.region = _.find(this.btService.regions, {ID: this.tour.Region}).Name;
+    this.region = _.find(this.btService.regions, {ID: this.tour.Region})!.Name;
     this.tourtype = _.find(this.btService.tourtypes, {
       ID: this.tour.Tourtype,
-    }).Name;
+    })!.Name;
   }
 
   async presentActionSheet() {
