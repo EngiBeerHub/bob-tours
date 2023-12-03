@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="myToolbarStyle">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -22,8 +22,10 @@
         {{tour.Title}}
       </ion-item>
     </ng-container>
-    <ion-item *ngIf="favService.favIDs?.length === 0"
-      >You didn't choose any favorites yet!</ion-item
-    >
+    <ion-item *ngIf="favService.favIDs?.length === 0">
+      <div class="ion-text-center ion-text-uppercase" style="color: var(--ion-color-primary);">
+        You didn't choose any favorites yet!
+      </div>
+    </ion-item>
   </ion-list>
 </ion-content>

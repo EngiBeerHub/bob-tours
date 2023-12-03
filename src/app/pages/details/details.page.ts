@@ -1,16 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import {
-  ActionSheetController,
-  AlertController,
-  IonicModule,
-  ModalController,
-} from '@ionic/angular';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {ActionSheetController, AlertController, AnimationController, ModalController,} from '@ionic/angular';
 import * as _ from 'lodash';
-import { BobToursService } from 'src/app/services/bob-tours.service';
-import { FavoritesService } from 'src/app/services/favorites.service';
-import { RequestPage } from '../request/request.page';
-import { MapPage } from '../map/map.page';
+import {BobToursService} from 'src/app/services/bob-tours.service';
+import {FavoritesService} from 'src/app/services/favorites.service';
+import {RequestPage} from '../request/request.page';
+import {MapPage} from '../map/map.page';
 
 @Component({
   selector: 'app-details',
@@ -22,6 +17,7 @@ export class DetailsPage implements OnInit {
   isFavorite: boolean = false;
   region: string = '';
   tourtype: string = '';
+  fadeOutOptionButton = true;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -29,14 +25,16 @@ export class DetailsPage implements OnInit {
     public favService: FavoritesService,
     private actionSheetCtrl: ActionSheetController,
     private alertCtrl: AlertController,
-    private modalCtrl: ModalController
-  ) {}
+    private modalCtrl: ModalController,
+    private animationCtrl: AnimationController
+  ) {
+  }
 
   ngOnInit() {
     let id = this.activatedRoute.snapshot.paramMap.get('id');
     this.tour = _.find(this.btService.tours, ['ID', parseInt(id!)]);
     this.isFavorite = this.favService.favIDs.indexOf(parseInt(id!)) != -1;
-    this.region = _.find(this.btService.regions, { ID: this.tour.Region }).Name;
+    this.region = _.find(this.btService.regions, {ID: this.tour.Region}).Name;
     this.tourtype = _.find(this.btService.tourtypes, {
       ID: this.tour.Tourtype,
     }).Name;
@@ -87,7 +85,7 @@ export class DetailsPage implements OnInit {
       header: 'Remove Favorite?',
       message: 'Do you really want to remove this Favorite?',
       buttons: [
-        { text: 'No' },
+        {text: 'No'},
         {
           text: 'Yes',
           handler: () => {
@@ -118,5 +116,27 @@ export class DetailsPage implements OnInit {
       componentProps: this.tour,
     });
     modal.present();
+  }
+
+// user clicked share button
+  animateOptionButton() {
+    const OptionButton = document.getElementById('OptionButton');
+    if (OptionButton !== null) {
+      const fadeOut = this.animationCtrl.create()
+        .addElement(OptionButton)
+        .duration(1000)
+        .fromTo('opacity', 1, 0);
+      const fadeIn = this.animationCtrl.create()
+        .addElement(OptionButton)
+        .duration(1000)
+        .fromTo('opacity', 0, 1);
+      if (this.fadeOutOptionButton) {
+        fadeOut.play();
+      } else {
+        fadeIn.play();
+
+      }
+      this.fadeOutOptionButton = !this.fadeOutOptionButton;
+    }
   }
 }

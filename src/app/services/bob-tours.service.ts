@@ -1,6 +1,12 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 import * as _ from 'lodash';
+
+interface Category {
+  ID: number;
+  Name: string;
+  Count: number;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +17,7 @@ export class BobToursService {
   public tours: any;
   public all_tours: any;
   public hits: number = 24;
-  public price: any = { lower: 80, upper: 400 };
+  public price: any = {lower: 80, upper: 400};
 
   public gotAllTours: boolean = false;
 
@@ -47,8 +53,19 @@ export class BobToursService {
   }
 
   filterToursByPrice() {
+    // tours
     this.tours = _.filter(this.all_tours, (tour) => {
       return tour.PriceG >= this.price.lower && tour.PriceG <= this.price.upper;
+    });
+    // regions
+    this.regions.forEach((region: Category) => {
+      const tours = _.filter(this.tours, ['Region', region.ID]);
+      region.Count = tours.length;
+    });
+    // tourtypes
+    this.tourtypes.forEach((tourtype: Category) => {
+      const tours = _.filter(this.tours, ['Tourtype', tourtype.ID]);
+      tourtype.Count = tours.length;
     });
     this.hits = this.tours.length;
   }

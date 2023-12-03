@@ -17,9 +17,9 @@
       <ion-img
         src="https://ionic.andreas-dormann.de/img/big/{{tour.Image}}"
       ></ion-img>
-      <hr />
+      <hr/>
       {{tour.Description}}
-      <hr />
+      <hr/>
       <ion-grid no-padding>
         <ion-row style="margin-left: -12px">
           <ion-col size-xs="12" size-md="auto">
@@ -52,21 +52,21 @@
   </ion-card>
 
   <!-- A (FAB) share button -->
-  <ion-fab vertical="top" horizontal="end" slot="fixed">
+  <ion-fab vertical="top" horizontal="end" slot="fixed" (click)="animateOptionButton()">
     <ion-fab-button>
       <ion-icon name="share-social"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="start">
-      <ion-fab-button (click)="openSocial('facebook')">
+      <ion-fab-button (click)="openSocial('facebook')" color="tertiary">
         <ion-icon name="logo-facebook"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button (click)="openSocial('instagram')">
+      <ion-fab-button (click)="openSocial('instagram')" color="danger">
         <ion-icon name="logo-instagram"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button (click)="openSocial('twitter')">
+      <ion-fab-button (click)="openSocial('twitter')" color="secondary">
         <ion-icon name="logo-twitter"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button (click)="openSocial('whatsapp')">
+      <ion-fab-button (click)="openSocial('whatsapp')" color="success">
         <ion-icon name="logo-whatsapp"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
@@ -74,5 +74,5 @@
 </ion-content>
 
 <ion-footer class="ion-padding">
-  <ion-button expand="block" (click)="presentActionSheet()">Options</ion-button>
+  <ion-button id="OptionButton" expand="block" (click)="presentActionSheet()">Options</ion-button>
 </ion-footer>

@@ -1,4 +1,4 @@
-<ion-app>
+<ion-app [class]="settings.style">
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
@@ -24,7 +24,7 @@
             </ion-item>
           </ion-menu-toggle>
           <ion-item id="click-trigger">
-            <ion-icon slot="start" name="information-circle"> </ion-icon>
+            <ion-icon slot="start" name="information-circle"></ion-icon>
             <ion-label>About this app</ion-label>
             <ion-popover trigger="click-trigger" triggerAction="click">
               <ng-template>

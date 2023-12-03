@@ -1,13 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { BobToursService } from 'src/app/services/bob-tours.service';
-import * as _ from 'lodash';
+import {Component, OnInit} from '@angular/core';
+import {BobToursService} from 'src/app/services/bob-tours.service';
 
-interface TourType {
-  ID: number;
-  Name: string;
-  Count: number;
-}
+// interface TourType {
+//   ID: number;
+//   Name: string;
+//   Count: number;
+// }
 
 @Component({
   selector: 'app-tour-types',
@@ -15,12 +13,13 @@ interface TourType {
   styleUrls: ['./tour-types.page.scss'],
 })
 export class TourTypesPage implements OnInit {
-  constructor(public btService: BobToursService) {}
+  constructor(public btService: BobToursService) {
+  }
 
   ngOnInit() {
-    this.btService.tourtypes.forEach((tourtype: TourType) => {
-      const tours = _.filter(this.btService.tours, ['Tourtype', tourtype.ID]);
-      tourtype.Count = tours.length;
-    });
+    // this.btService.tourtypes.forEach((tourtype: TourType) => {
+    //   const tours = _.filter(this.btService.tours, ['Tourtype', tourtype.ID]);
+    //   tourtype.Count = tours.length;
+    // });
   }
 }

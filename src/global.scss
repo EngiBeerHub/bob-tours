@@ -24,3 +24,19 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+/** App font **/
+@font-face {
+  font-family: 'Orkney';
+  src: url('./assets/font/OrkneyRegular.ttf');
+}
+
+// Global theming
+:root {
+  --ion-font-family: 'Orkney';
+  --ion-toolbar-background: var(--ion-color-primary);
+  --ion-toolbar-color: var(--ion-color-primary-contrast);
+}
+
+@import "theme/azure-style.scss";
+@import "theme/summer-style.scss";
